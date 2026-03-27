@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const AddUser = () => {
+
+  const navigate = useNavigate();   
 
   const [user, setUser] = useState({
     username: "",
@@ -14,16 +17,22 @@ const AddUser = () => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
     await axios.post("http://localhost:8080/user", user);
-    alert("User added successfully!");
+
+    navigate("/");
+
   };
 
   return (
     <div className="container">
+
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-4 shadow">
+
           <h2 className="text-center m-4">Add User</h2>
+
           <form onSubmit={onSubmit}>
 
             <div className="mb-3">
@@ -31,7 +40,6 @@ const AddUser = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter username"
                 name="username"
                 value={user.username}
                 onChange={onInputChange}
@@ -39,13 +47,11 @@ const AddUser = () => {
               />
             </div>
 
-            {/* NAME */}
             <div className="mb-3">
               <label className="form-label">Name</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter name"
                 name="name"
                 value={user.name}
                 onChange={onInputChange}
@@ -53,13 +59,11 @@ const AddUser = () => {
               />
             </div>
 
-            {/* EMAIL */}
             <div className="mb-3">
               <label className="form-label">Email</label>
               <input
                 type="email"
                 className="form-control"
-                placeholder="Enter email"
                 name="email"
                 value={user.email}
                 onChange={onInputChange}
@@ -71,13 +75,11 @@ const AddUser = () => {
               Submit
             </button>
 
-            <button type="button" className="btn btn-danger mx-2">
-              Cancel
-            </button>
-
           </form>
+
         </div>
       </div>
+
     </div>
   )
 }
